@@ -19,14 +19,14 @@
 1. 使用yum命令安装
 
    ```shell
-   yum install keepalived-v
+   yum install keepalived -
    ```
 
 2. 安装完成之后，在etc里面生成keepalived，有文件keepalived.conf
 
 # 4. 完成高可用配置(主从配置)
 
-1. 修改`/etc/keepalived/keepalived.conf`配置文件
+1. 修改`/etc/keepalived/keepalived.conf`配置文件(注意主从服务器的配置有不同的地方）
 
 ```properties
 global_defs {
@@ -43,7 +43,7 @@ sysadmin@firewall.loc
 
 notification_email_from Alexandre.Cassen@firewall.loc
 
-smtp_server 192.168.17.129
+smtp_server 192.168.17.129   //主服务器ip
 
 smtp_connect_timeout 30
 
@@ -68,7 +68,7 @@ interface ens33	//网卡
 
 virtual_router_id 51	# 主、备机的 virtual_router_id 必须相同
 
-priority 100	# 主、备机取不同的优先级，主机值较大，备份机值较小
+priority 90	# 主、备机取不同的优先级，主机值较大，备份机值较小
 
 advert_int 1
 
@@ -108,9 +108,9 @@ if [ $A -eq 0 ];
 3. 把两台服务器上nginx和keepalived启动
 
 启动nginx  
-
+来到/usr/local/nginx/sbin
 ```shell
-systemctl start nginx
+./nginx
 ```
 
 启动keepalived
